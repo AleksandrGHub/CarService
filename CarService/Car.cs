@@ -7,12 +7,9 @@
         public Car(Detail detail)
         {
             Detail = detail;
-            _money = 100000;
-            CostPenalty = 2000;
         }
 
         public Detail Detail { get; private set; }
-        public int CostPenalty { get; private set; }
 
         public void SetDetail(Detail detail)
         {
@@ -24,9 +21,9 @@
             _money -= money;
         }
 
-        public void AddMoneyPenalty()
+        public void AddMoneyPenalty(int costPenalty)
         {
-            _money += CostPenalty;
+            _money += costPenalty;
         }
 
         public void ShowInfo()

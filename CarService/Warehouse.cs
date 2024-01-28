@@ -2,7 +2,6 @@
 {
     class Warehouse
     {
-        private Random _random = new Random();
         private List<Cell> _cells = new List<Cell>();
 
         public Warehouse()
@@ -13,11 +12,11 @@
         public void ShowInfo()
         {
             Console.WriteLine("Список деталей на складе");
-            Console.WriteLine("{0,12}{1,21}{2,20}{3,20}{4,20}", "Номер детали", "Название детали", "Цена", "Стоимость услуги", "Колличество деталей");
+            Console.WriteLine($"{"Номер детали",12}{"Название детали",21}{"Цена",20}{"Стоимость услуги",20}{"Колличество деталей",20}");
 
             for (int i = 0; i < _cells.Count; i++)
             {
-                Console.WriteLine("{0,12}{1,21}{2,20}{3,20}{4,20}", i + 1, _cells[i].Detail.Name, _cells[i].Detail.Cost, _cells[i].Detail.CostReplace, _cells[i].Number);
+                Console.WriteLine($"{i + 1,12}{_cells[i].Detail.Name,21}{_cells[i].Detail.Cost,20}{_cells[i].Detail.CostReplace,20}{_cells[i].Number,20}");
             }
         }
 
@@ -54,7 +53,7 @@
 
             for (int i = 0; i < catalog.GetCount(); i++)
             {
-                _cells.Add(new Cell(catalog.GetDetail(i).Clone(isBroken: false), _random.Next(minNumberDetails, maxNumberDetails)));
+                _cells.Add(new Cell(catalog.GetDetail(i).Clone(isBroken: false), UserUtils.GetRandomNumber(minNumberDetails, maxNumberDetails)));
             }
         }
     }

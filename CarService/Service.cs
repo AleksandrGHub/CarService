@@ -3,9 +3,10 @@
     class Service
     {
         private List<Car> _cars = new List<Car>();
-        private Warehouse _warehouse = new Warehouse();
         private List<Checklist> _checklists = new List<Checklist>();
+        private Warehouse _warehouse = new Warehouse();
         private int _money = 1000000;
+        private int _costPenalty = 2000;
 
         public Service()
         {
@@ -14,7 +15,7 @@
 
         public void ShowInfo()
         {
-            Console.WriteLine("**************************************** Автосервис ***************************************");
+            Console.WriteLine("*************************************** Автосервис **************************************");
             Console.WriteLine($"Деньги автосервиса: {_money} руб.\n");
             _cars[0].ShowInfo();
         }
@@ -58,9 +59,9 @@
 
         public void RefuseCar()
         {
-            _cars[0].AddMoneyPenalty();
+            _cars[0].AddMoneyPenalty(_costPenalty);
 
-            _money -= _cars[0].CostPenalty;
+            _money -= _costPenalty;
 
             _cars.RemoveAt(index: 0);
         }
@@ -78,7 +79,7 @@
             {
                 Console.WriteLine("Укажите номер детали из списка!");
             }
-            while (!Int32.TryParse(Console.ReadLine(), out number) | !(number >= 1) | !(number <= _warehouse.GetCellsCount()));
+            while (Int32.TryParse(Console.ReadLine(), out number) == false | (number >= 1) == false | (number <= _warehouse.GetCellsCount()) == false);
 
             return number;
         }

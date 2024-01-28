@@ -4,6 +4,7 @@
     {
         private const string ServeCommand = "Обслужить";
         private const string RefuseCommand = "Отказать";
+
         private Service _servise = new Service();
 
         public void Work()
