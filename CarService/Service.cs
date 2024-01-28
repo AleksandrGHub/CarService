@@ -2,89 +2,75 @@
 {
     class Service
     {
-        private List<Client> _clients = new List<Client>();
+        private List<Car> _cars = new List<Car>();
 
         private Warehouse _warehouse = new Warehouse();
 
-        private List<Checklist> _checklist = new List<Checklist>();
+        private List<Checklist> _checklists = new List<Checklist>();
 
         private int _money = 1000000;
 
         public Service()
         {
-            AddClients();
+            AddCars();
         }
 
         public void ShowInfo()
         {
-            Console.WriteLine("***************************************** Автосервис ****************************************");
-            Console.WriteLine($"Деньги автосервиса: {_money} руб.");
+            Console.WriteLine("**************************************** Автосервис ***************************************");
+            Console.WriteLine($"Деньги автосервиса: {_money} руб.\n");
+            _cars[0].ShowInfo();
         }
 
-        public void ShowClients()
+        public void Serve()
         {
-            int orderNumber = 1;
-
-            Console.WriteLine("{0,13}{1,20}{2,20}{3,20}{4,20}", "Номер клиента", "Название детали", "Деньги клиента", "Итоговая стоимость", "Статус услуги");
-
-            foreach (Client client in _clients)
-            {
-                Console.WriteLine("{0,13}{1,20}{2,20}{3,20}{4,20}", orderNumber++, client.Car.Detail.Name, Convert.ToString(client.Money) + " руб.", Convert.ToString(client.Car.Detail.Cost + client.Car.Detail.CostReplace) + " руб.", client.IsServe ? "оказана" : "не оказана");
-            }
-        }
-
-        public void ShowClint(int index)
-        {
-            Console.WriteLine($"\nКлиент {index + 1}");
-            _clients[index].Car.ShowInfo();
-        }
-
-        public void Serve(int index)
-        {
-            int indexDetail;
+            int index;
 
             _warehouse.ShowInfo();
 
-            indexDetail = GetNumber() - 1;
+            index = GetNumber() - 1;
 
-            if (_warehouse.TryDecreaseCount(indexDetail))
+            if (_warehouse.TryDecreaseCount(index))
             {
-                Client client = _clients[index];
-                Detail detail = _warehouse.GetDetail(indexDetail).Clone(isBroken: false);
-                Checklist checklist = new Checklist(client);
+                Car car = _cars[0];
+                Detail detail = _warehouse.GetDetail(index).Clone(isBroken: false);
+                Checklist checklist = new Checklist(car);
 
-                if (client.Car.Detail.Name == detail.Name)
+                if (car.Detail.Name == detail.Name)
                 {
-                    client.Car.SetDetail(detail);
-                    client.Serve();
-                    client.DecreaseMoney(checklist);
+                    car.SetDetail(detail);
+                    car.DecreaseMoney(checklist);
 
-                    _checklist.Add(checklist);
+                    _checklists.Add(checklist);
 
                     _money += checklist.TotalCost;
+
+                    _cars.RemoveAt(index: 0);
                 }
                 else
                 {
-                    client.Car.SetDetail(detail);
-                    Refuse(index);
+                    car.SetDetail(detail);
+                    Refuse();
                 }
             }
             else
             {
-                Refuse(index);
+                Refuse();
             }
         }
 
-        public void Refuse(int index)
+        public void Refuse()
         {
-            _clients[index].AddMoneyPenalty();
+            _cars[0].AddMoneyPenalty();
 
-            _money -= _clients[index].CostPenalty;
+            _money -= _cars[0].CostPenalty;
+
+            _cars.RemoveAt(index: 0);
         }
 
-        public int GetCountClients()
+        public int GetCountCars()
         {
-            return _clients.Count;
+            return _cars.Count;
         }
 
         private int GetNumber()
@@ -96,15 +82,15 @@
             return number;
         }
 
-        private void AddClients()
+        private void AddCars()
         {
-            Client client = new Client();
+            Catalog catalog = new Catalog();
 
-            int numberClients = 5;
+            int numberCars = 5;
 
-            for (int i = 0; i < numberClients; i++)
+            for (int i = 0; i < numberCars; i++)
             {
-                _clients.Add(client.Clone());
+                _cars.Add(new Car(catalog.GetRandomDetail().Clone(isBroken: true)));
             }
         }
     }

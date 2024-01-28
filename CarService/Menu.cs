@@ -9,17 +9,15 @@
 
         public void Work()
         {
-            string? userInput;
+            string userInput;
 
-            for (int i = 0; i < _servise.GetCountClients(); i++)
+            while (_servise.GetCountCars() > 0)
             {
                 Console.Clear();
 
                 _servise.ShowInfo();
-                _servise.ShowClients();
 
-                _servise.ShowClint(i);
-                Console.WriteLine("\nВведите команду: {0,10} или {1,10}", ServeCommand, RefuseCommand);
+                Console.WriteLine($"\nВведите команду: {ServeCommand} или {RefuseCommand}");
 
                 do
                 {
@@ -28,23 +26,15 @@
                     switch (userInput)
                     {
                         case ServeCommand:
-                            _servise.Serve(i);
+                            _servise.Serve();
                             break;
 
                         case RefuseCommand:
-                            _servise.Refuse(i);
+                            _servise.Refuse();
                             break;
                     }
                 }
                 while (userInput != ServeCommand & userInput != RefuseCommand);
-
-                if (i == _servise.GetCountClients()-1)
-                {
-                    Console.Clear();
-
-                    _servise.ShowInfo();
-                    _servise.ShowClients();
-                }
             }
         }
     }

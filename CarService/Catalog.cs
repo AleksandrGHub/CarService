@@ -4,8 +4,12 @@
     {
         private Random _random = new Random();
 
-        private Detail[] _details = new Detail[]
+        private Detail[] _details;
+
+        public Catalog()
         {
+            _details =
+            [
             new Detail("бампер",cost: 15000,costReplace: 500,false),
             new Detail("генератор",cost: 12000,costReplace: 4000,false),
             new Detail("глушитель",cost: 22000,costReplace: 4500,false),
@@ -21,7 +25,8 @@
             new Detail("тормозная колодка",cost: 3000,costReplace: 2000,false),
             new Detail("тормозные диски",cost: 5000,costReplace: 4000,false),
             new Detail("шаровая",cost : 1500, costReplace : 1500,false),
-        };
+            ];
+        }
 
         public Detail GetDetail(int index)
         {

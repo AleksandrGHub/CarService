@@ -26,7 +26,7 @@
         {
             bool canDecrease = false;
 
-            if (_cells[index - 1].Number > 0)
+            if (_cells[index].Number > 0)
             {
                 canDecrease = true;
 

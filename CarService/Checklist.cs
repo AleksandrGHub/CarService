@@ -2,10 +2,10 @@
 {
     class Checklist
     {
-        public Checklist(Client client)
+        public Checklist(Car car)
         {
-            NameDetail = client.Car.Detail.Name;
-            TotalCost = client.Car.Detail.Cost + client.Car.Detail.CostReplace;
+            NameDetail = car.Detail.Name;
+            TotalCost = car.Detail.Cost + car.Detail.CostReplace;
         }
 
         public string NameDetail { get; private set; }
