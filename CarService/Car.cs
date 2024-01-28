@@ -19,9 +19,9 @@
             Detail = detail;
         }
 
-        public void DecreaseMoney(Checklist checklist)
+        public void DecreaseMoney(int money)
         {
-            _money -= checklist.TotalCost;
+            _money -= money;
         }
 
         public void AddMoneyPenalty()

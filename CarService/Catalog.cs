@@ -3,7 +3,6 @@
     class Catalog
     {
         private Random _random = new Random();
-
         private Detail[] _details;
 
         public Catalog()

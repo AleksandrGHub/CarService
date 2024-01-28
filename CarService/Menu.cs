@@ -4,12 +4,13 @@
     {
         private const string ServeCommand = "Обслужить";
         private const string RefuseCommand = "Отказать";
-
         private Service _servise = new Service();
 
         public void Work()
         {
             string userInput;
+
+            bool hasKeywords;
 
             while (_servise.GetCountCars() > 0)
             {
@@ -21,20 +22,25 @@
 
                 do
                 {
+                    hasKeywords = true;
                     userInput = Console.ReadLine();
 
                     switch (userInput)
                     {
                         case ServeCommand:
-                            _servise.Serve();
+                            _servise.ServeCar();
                             break;
 
                         case RefuseCommand:
-                            _servise.Refuse();
+                            _servise.RefuseCar();
+                            break;
+
+                        default:
+                            hasKeywords = false;
                             break;
                     }
                 }
-                while (userInput != ServeCommand & userInput != RefuseCommand);
+                while (hasKeywords == false);
             }
         }
     }

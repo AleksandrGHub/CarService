@@ -3,7 +3,6 @@
     class Warehouse
     {
         private Random _random = new Random();
-
         private List<Cell> _cells = new List<Cell>();
 
         public Warehouse()
